@@ -55,5 +55,19 @@ concatena Nil b = b
 concatena a Nil = a
 concatena (Cons a as) b =  Cons ( a ) (concatena  as  b)
 
+--Ejercicio 6
+--Funcion que busca e indica si un Natural esta dentro de una listaNat
+pertenece :: Natural -> ListaNat ->Bool
+pertenece a  Nil = False
+pertenece a  (Cons b bs) 
+ | (igual a b) = True
+ | otherwise = (pertenece a bs)
+
+--Funcion auxiliar para saber si dos Naurales son el mismo 
+igual :: Natural -> Natural -> Bool
+igual Cero Cero = True
+igual a Cero = False
+igual Cero b = False
+igual (Suc a) (Suc b) = igual a b
 
 
