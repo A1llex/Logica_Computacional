@@ -96,7 +96,30 @@ tailSnoc (Snoc (e)  a) = (Snoc (tailSnoc e) a)
 
 --Ejercicio 10
 --Funcion que implementa mapeo sobre listas snoc
-MapSnoc :: ( a -> b ) -> ListaSnoc a -> ListaSnoc b
-MapSnoc (a -> b) (Snoc (Empty) e) = (Snoc (Empty) eab)
-MapSnoc (a -> b) (Snoc (snl) e) = (Snoc (MapSnoc (a-> b) (snl) ) eab)
+mapSnoc :: ( a -> b ) -> ListaSnoc a -> ListaSnoc b
+mapSnoc (f) (Snoc (Empty) e) = (Snoc (Empty) (f e))
+mapSnoc (f) (Snoc (snl) e) = (Snoc (mapSnoc (f) (snl) ) (f e))
 
+--Puntos Extra
+
+-- 1 
+--Funcion que regresa el largo de una cadena de Int
+longitud :: Int -> Int
+longitud 0 = 0
+longitud (a) = 1 + (longitud (div a  10))
+
+-- 2
+--Funcion como fibonacci pero suma los 3 anteriores
+tribonaccies :: Int -> [Int] 
+tribonaccies 0 = [0]
+tribonaccies 1 = [0,1]
+tribonaccies 2 = [0,1,1]
+tribonaccies n = (tribonaccies (n-1)) ++ [sumtreslist (tribonaccies ( n-1) )] 
+
+--Funcion auxiliar que suma los ultimos 3 elementos de las listas
+sumtreslist :: [Int] -> Int
+sumtreslist [] = 0
+sumtreslist [a] = a
+sumtreslist [a,b] = a+b
+sumtreslist [a,b,c] = a+b+c
+sumtreslist (a:b) = sumtreslist( b)
