@@ -101,9 +101,9 @@ mapSnoc (f) (Snoc (Empty) e) = (Snoc (Empty) (f e))
 mapSnoc (f) (Snoc (snl) e) = (Snoc (mapSnoc (f) (snl) ) (f e))
 
 --Puntos Extra
-
 -- 1 
 --Funcion que regresa el largo de una cadena de Int
+--La funcion solo funciona con naturales sin incluir al cero
 longitud :: Int -> Int
 longitud 0 = 0
 longitud (a) = 1 + (longitud (div a  10))
