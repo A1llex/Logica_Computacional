@@ -1,6 +1,6 @@
-module Pruebas 
- where
+module Pruebas where
 import Practica01
+
 l1 = mayorQue (Suc(Suc(Suc Cero))) (Suc(Suc Cero))
 l2 = mayorQue (Suc Cero) (Suc (Suc Cero))
 l3 = restaNat (Suc(Suc Cero)) (Suc(Suc(Suc(Suc(Suc Cero)))))

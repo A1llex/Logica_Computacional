@@ -2,9 +2,11 @@
 --Práctica 2
 --Fernandez Aguilar Alex Gerardo
 
+module Practica01 where 
+
 --Definiciones
 data Natural = Cero | Suc Natural deriving Show
-data ListaNat = Nil | Cons Natural ListaNat deriving Show
+data ListaNat = Nil | Cons Natural ListaNat --deriving Show
 data BTree a = Void | Node ( BTree a ) a ( BTree a ) deriving Show
 data ListaSnoc a = Empty | Snoc ( ListaSnoc a ) a deriving Show
 
@@ -46,7 +48,7 @@ sumNat a (Suc b) = Suc(sumNat a b)
 reversa :: ListaNat -> ListaNat
 reversa Nil = Nil
 reversa (Cons a  Nil) = (Cons a  Nil)
-reversa (Cons a  b) = concatena (reversa b)  (Cons a Nil) 
+reversa (Cons a  bs) = concatena (reversa bs)  (Cons a Nil) 
 
 --Ejercicio 5
 --Funcion que concatena dos LisaNat una seguida de la segunda
@@ -70,4 +72,31 @@ igual a Cero = False
 igual Cero b = False
 igual (Suc a) (Suc b) = igual a b
 
+--Ejecicio 7
+--Funcion que transformara un arbol en una lista
+inOrden :: BTree a -> [a]
+inOrden Void  = []
+inOrden (Node (ai) e (ad)) = (inOrden ai) ++ [e] ++ (inOrden ad)
+
+--Ejercicio 8
+--Funcion que agrega un elemento a un arbol ordenado
+agregaOrden :: (Ord a ) => a -> BTree a -> BTree a
+agregaOrden a ( Node (Void) (e) (Void) )
+ | (a<=e) = ( Node (Node(Void)(a)(Void)) (e) (Void) )
+ | otherwise = ( Node (Void) (e) (Node(Void)(a)(Void)) )
+agregaOrden a ( Node(ai)(e)(ad))
+ | (a<=e) = ( Node ( agregaOrden (a) (ai) ) (e) (ad) )
+ | otherwise = ( Node (ai) (e) ( agregaOrden (a) (ad) ) )
+
+--Ejercicio 9 
+--Funcion que regresa una listaSnoc la devuelve sin la cabeza
+tailSnoc :: ListaSnoc a -> ListaSnoc a
+tailSnoc (Snoc (Empty) a) = Empty
+tailSnoc (Snoc (e)  a) = (Snoc (tailSnoc e) a)
+
+--Ejercicio 10
+--Funcion que implementa mapeo sobre listas snoc
+MapSnoc :: ( a -> b ) -> ListaSnoc a -> ListaSnoc b
+MapSnoc (a -> b) (Snoc (Empty) e) = (Snoc (Empty) eab)
+MapSnoc (a -> b) (Snoc (snl) e) = (Snoc (MapSnoc (a-> b) (snl) ) eab)
 
