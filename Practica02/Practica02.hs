@@ -4,6 +4,8 @@
 
 module Practica02 where 
 
+import Data.List
+
 --Definiciones
 
 --1.1 Logica Proposicional
@@ -47,13 +49,51 @@ satMod m phi = case phi of
 --1 
 --Funcion que recive una formula y devuelve la lista de variables que hay en la formula
 varForm :: LP -> [Indice]
-varForm T = []
-varForm F = []
 varForm (Var ind) = [ind]
-varForm (Neg a) = (varForm a)
-varForm (And a b) = (varForm a) ++ (varForm b)
-varForm (Or a b) = (varForm a) ++ (varForm b)
-varForm (Imp a b) = (varForm a) ++ (varForm b)
+varForm (Neg a)   = nub( varForm a )
+varForm (And a b) = nub( (varForm a ) ++ (varForm b) )
+varForm (Or a b)  = nub( (varForm a ) ++ (varForm b) )
+varForm (Imp a b) = nub( (varForm a ) ++ (varForm b) )
+--como true o false es todo lo que queda lo simplifico
+varForm _ = []
+
+--2
+--Funcion que obtendra el conjunto potencia de un conjunto
+--al serconjunto se asegura que no habra elementos repetidos
+{-
+
+conjuntoPot:: [t] -> [[t]]
+conjuntoPot [] = [[]]
+conjuntoPot [a] =  [[a],[]]
+conjuntoPot (x:xs) = [[x]]++(aux x xs) ++ (conjuntoPot xs) 
+-}
+
+pot :: Int -> [a] -> [[a]]
+pot _ []  = [[]]
+pot 0 _   = [[]]
+pot n xs | n >= length xs = [xs]
+pot n (x:xs) = concat [map (x:) $ pot (n-1) xs, pot n xs]
 
 
---Funcion auxiliar que suma los ultimos 3 elementos de las listas
+nonEmptySubsequences         :: [a] -> [[a]]
+nonEmptySubsequences []      =  []
+nonEmptySubsequences (x:xs)  =  [x] : foldr f [] (nonEmptySubsequences xs)
+  where f ys r = ys : (x : ys) : r
+
+--3
+--funcion que devuelve si la formula es valida
+esVal :: LP -> Bool
+
+--4
+--funcion que devuelve si la formula es una tautologia
+esSat :: LP -> Bool
+
+--4
+--funcion quita las implicaciones
+quitaImp :: LP -> LP
+quitaImp (Neg a)   = quitaImp a
+quitaImp (And a b) = And (quitaImp a ) (quitaImp b)
+quitaImp (Or a b)  = Or  (quitaImp a ) (quitaImp b)
+quitaImp (Imp a b) = And (Neg(quitaImp a ))  (quitaImp b)
+-- dejamos igual lo demas que hay que son variables y True y False
+quitaImp a = a
