@@ -91,6 +91,6 @@ quitaImp :: LP -> LP
 quitaImp (Neg a)   = quitaImp a
 quitaImp (And a b) = And (quitaImp a ) (quitaImp b)
 quitaImp (Or a b)  = Or  (quitaImp a ) (quitaImp b)
-quitaImp (Imp a b) = And (Neg(quitaImp a ))  (quitaImp b)
+quitaImp (Imp a b) = Or (Neg(quitaImp a ))  (quitaImp b)
 -- dejamos igual lo demas que hay que son variables y True y False
 quitaImp a = a
