@@ -83,9 +83,11 @@ tabla a (x:xs)= (satMod (x) a) : (tabla a xs)
 --funcion que devuelve si la formula es satisfacible 
 --es decir revisa todas sus variables y genera uan tabla para indicar que todas sean T y valuar la expresion
 esSat :: LP -> Bool
-esSat  a = satMod (varForm a) a
+esSat a
+ | ([False] == nub (tabla (a) (conjuntoPot(varForm a))) ) = False
+ | otherwise = True
 
---4
+--5
 --funcion quita las implicaciones
 quitaImp :: LP -> LP
 quitaImp (Neg a)   = quitaImp a
