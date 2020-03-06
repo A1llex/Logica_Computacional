@@ -9,9 +9,8 @@ type Indice = Int
 data LP = T | F | Var Indice
     | Neg LP
     | And LP LP | Or LP LP
-    | Imp LP LP deriving (Eq,Show)
---Solo ocupaba esto para poder visualizar mejor las expreciones
-{--
+    | Imp LP LP deriving (Eq)
+
 instance Show LP where 
   show T = "T" -- T
   show F = "F" -- F
@@ -20,7 +19,8 @@ instance Show LP where
   show (And p q) = "[" ++ show p ++ "&&" ++ show q ++ "]" -- (P ∧ Q)
   show (Or p q)  = "(" ++ show p ++ "||" ++ show q ++ ")" -- (P ∨ Q)
   show (Imp p q) = "<" ++ show p ++ "->" ++ show q ++ ">" -- (P → Q)
---}
+
+--Funcion de la tarea anterior
 quitaImp :: LP -> LP
 quitaImp (Neg a)   = quitaImp a
 quitaImp (And a b) = And (quitaImp a ) (quitaImp b)
@@ -36,6 +36,7 @@ La función distrCNF aplica la sig. distrivutividad: si tienen (p ∧ q) ∨ r =
 La función distrCNF aplica la sig. distrivutividad: si tienen (p ∨ q) ∧ r = (p ∧ r) ∨ (q ∧ r)
 Ojo! En ambas distributividades deben considerar otro caso.  
 -}
+
 negacion:: LP -> LP
 --dentro de la funcion tambien implemente quitar las implicaciones
 negacion (And a b) = (And (negacion a ) (negacion b) )
@@ -72,22 +73,24 @@ distrDNF a = a
 --Ejercicio 1
 fnn:: LP -> LP
 -- Utilizan la función quitaImp y negacion. Primero utilizan quitaImp y al resultado le van a aplicar la función negacion
---dado que implemente en la negacion el quitar la implicacion
+-- dado que implemente en la negacion el quitar la implicacion queda asi
 fnn lp = negacion( lp )
 
 --Ejercicio 2
 --La función que le pasamos a fnc ya NO TIENE implicaciones (ya que suponemos que ya está en fnn la fórmula que nos pasen). Entonces no deben considerar ese caso
 fnc:: LP -> LP
+-- es necesario aplicarla dos veces por las veces rezagadas que pasan al usar la distivutibidad
 fnc lp = distrCNF (distrCNF (negacion lp) )
 
 --Ejercicio 3
 --La función que le pasamos a fnd ya NO TIENE implicaciones (ya que suponemos que ya está en fnn la fórmula que nos pasen). Entonces no deben considerar ese caso
 fnd:: LP -> LP
+-- es necesario aplicarla dos veces por las veces rezagadas que pasan al usar la distivutibidad
 fnd lp = distrDNF (distrDNF (negacion lp) )
 
 --Ejercicio 4
-
 valCNF :: LP -> Bool
+-- es necesario aplicarla dos veces por las veces rezagadas que pasan al simplifocar casos
 valCNF lp = auxvalCNF(simp (simp lp))
 
 auxvalCNF :: LP -> Bool
