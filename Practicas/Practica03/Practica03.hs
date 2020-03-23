@@ -18,7 +18,7 @@ instance Show LP where
   show (Neg p)   = "¬ " ++ show p -- ¬ P
   show (And p q) = "[" ++ show p ++ "&&" ++ show q ++ "]" -- (P ∧ Q)
   show (Or p q)  = "(" ++ show p ++ "||" ++ show q ++ ")" -- (P ∨ Q)
-  show (Imp p q) = "<" ++ show p ++ "->" ++ show q ++ ">" -- (P → Q)
+  show (Imp p q) = "(" ++ show p ++ "->" ++ show q ++ ")" -- (P → Q)
 
 --Funcion de la tarea anterior
 quitaImp :: LP -> LP

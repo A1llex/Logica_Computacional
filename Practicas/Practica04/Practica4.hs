@@ -5,28 +5,40 @@ import SintaxisPLI
 
 -- Función que nos dice si una formula de PLI cumple el Axioma 1
 esAxL1 :: PLI -> Bool
-esAxL1 phi = case phi of
-  _ -> error $ "Se necesita implementar."
+esAxL1 (Imp a (Imp b c ) ) 
+ | (a == c) = True
+ | otherwise = False
+esAxL1 _ = False
 
 -- Función que nos dice si una formula de PLI cumple el Axioma 2
 esAxL2 :: PLI -> Bool
-esAxL2 phi = case phi of
-  _ -> error $ "Se necesita implementar."
+esAxL2 (Imp (Imp a (Imp b c) ) (Imp (Imp d e) (Imp f g) ) ) 
+ | ( (a == d) && (a == f) && (b == e) && (c == g) ) = True
+ | otherwise = False
+esAxL2 _ = False
 
 -- Función que nos dice si una formula de PLI cumple el Axioma 3
 esAxL3 :: PLI -> Bool
-esAxL3 phi = case phi of
-  _ -> error $ "Se necesita implementar."
+esAxL3 (Imp (Imp (Imp a F) (Imp b F) ) (Imp (c) (d)) )
+ | (a == d) && (b == c)  = True
+ | otherwise = False
+esAxL3 _ = False
 
 -- Función que nos dice si una formula es una Axioma del sistema L
 esAxiomaDeL :: PLI -> Bool
-esAxiomaDeL phi = error $ "Se necesita implementar."
+esAxiomaDeL phi 
+ | (esAxL1 phi) || (esAxL2 phi) || (esAxL3 phi)  = True
+ |otherwise = False
 
 -- Función que nos dice si se aplico de manera correcta Modus Ponens
 esModusPonens :: (PLI, PLI, PLI) -> Bool
-esModusPonens (phi, chi, psi) = case (phi, chi, psi) of
-  _ -> error $ "Se necesita implementar."
-
+esModusPonens (a,(Imp b c), d) 
+ | (a == b) && (c == d) = True
+ | otherwise = False
+esModusPonens ((Imp a b), c, d) 
+ | (a == c) && (b == d) = True
+ | otherwise = False
+esModusPonens _ = False
 
 -- Reglas del sistema L
 data ReglaL = Prem           -- Las premisas son validas
@@ -54,14 +66,14 @@ ultimoPaso lpasos
   | lpasos /= [] = (n,p)
   | otherwise = (0,(oT,Prem))
   where
-    (n,p) = last lpasos
+    (n,p) = last lpasos  
 
 -- Revisa que el paso sea correcto
 checkPaso :: [PLI] -> [NumPaso] -> NumPaso -> Bool
 checkPaso lprem lpp p = case p of
-  (n, (phi, Prem)) -> error $ "Se necesita implementar." -- Revisamos que phi sea parte de lprem y que n sea el ùltimo paso
-  (n, (phi, Ax)) -> error $ "Se necesita implementar." -- Revisamos que phi sea un axioma  y que n sea el ùltimo paso
-  (n, (phi, ModPon i j)) -> esModusPonens (alpha, beta, phi) && n == nU+1 -- Revisamos que phi sea resultado de hacer modus ponens con i y j
+  (n, (phi, Prem)) -> ( (elem phi lprem ) && (  n == nU +1 ) )  -- Revisamos que phi sea parte de lprem y que n sea el ùltimo paso
+  (n, (phi, Ax)) -> ( (esAxiomaDeL phi ) && (  n == nU +1 ) ) -- Revisamos que phi sea un axioma  y que n sea el ùltimo paso
+  (n, (phi, ModPon i j)) -> esModusPonens (alpha, beta, phi) && (n == nU+1) -- Revisamos que phi sea resultado de hacer modus ponens con i y j
     where
       alpha = phiPasoNum i lpp
       beta = phiPasoNum j lpp
