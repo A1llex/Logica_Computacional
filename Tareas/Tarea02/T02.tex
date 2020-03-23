@@ -1,0 +1,242 @@
+\documentclass[10pt,letterpaper,fleqn]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{cancel}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage[most]{tcolorbox}
+
+\usepackage{tabu}
+
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{trees,positioning}
+
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+
+    {\scshape\LARGE Universidad Nacional Autónoma de México \par}
+
+    \vspace{1cm}
+    {\scshape\Large Facultad de ciencias\par}
+    \vspace{1.5cm}
+
+    \begin{center}
+        \includegraphics[scale=.1]{../../assets/img/logo.png}
+    \end{center}
+
+    \vspace{.8 cm}
+
+    {\LARGE Tarea  02 : \par}
+    {\huge\bfseries Logica Computacional\par}
+
+    \vspace{0.5cm}
+    \large{\itshape{Alex Gerardo Fernández Aguilar}} \small{ -314338097 } \\ \vspace{0.3cm}
+    
+   
+    \vfill
+
+    Trabajo presentado como parte del curso de
+    \textbf{Materia}
+    impartido por el profesor \textbf{ Francisco Hernández Quiroz }. \par
+    \vspace{0.1cm}
+\end{titlepage}
+
+    \begin{enumerate}
+    
+        %Ejercicio 1%
+        \item \textbf{ Demuestra que si $f : \{V, F\}^n \rightarrow \{V, F\} (1 \leq n)$, entonces $f$ se puede definir en términos de
+        alguna de las siguientes opciones (elige la que prefieras):}
+        \\\textbf{usando $\neg  $  y $\vee $ }
+        \begin{equation*}
+            \begin{split}
+                & \neg \,\neg \alpha \Leftrightarrow \alpha
+                \\& var \Rightarrow var
+                \\& (\alpha \vee \beta) \Rightarrow (\alpha \vee \beta)
+                \\& (\alpha \wedge \beta) \Rightarrow \neg(\neg \alpha \vee \neg \beta)
+                \\& (\alpha \rightarrow \beta) \Leftrightarrow (\neg \alpha \vee \beta)
+                \\& (\alpha \leftrightarrow \beta) \Leftrightarrow \neg(\neg(\neg \alpha \vee \beta )\vee \neg(\neg \beta \vee   \alpha))
+            \end{split}
+        \end{equation*}
+		
+        %Ejercicio 2%
+        \item \textbf{Transforma las siguientes fórmulas a formas normales conjuntivas:}
+        \begin{enumerate}
+            %Ejercicio 2.a%
+            \item \textbf{ $(p \Rightarrow q) \wedge (r \vee \neg q) $}
+            \begin{equation*}
+                \begin{split}
+                    &   (p \Rightarrow q) \wedge (r \vee \neg q)
+                    \\& (\neg p \vee  q) \wedge (r \vee \neg q)
+                    \\& (\neg p \wedge  (r \vee \neg q)  ) \vee (q \wedge  (r \vee \neg q)  )
+                    \\& ((\neg p \wedge r) \vee (\neg p \wedge \neg q)) \vee ((q \wedge r) \vee (q \wedge \neg q))
+                    \\& (\neg p \wedge r) \vee (\neg p \wedge \neg q) \vee  (q \wedge r) \vee (q \wedge \neg q)
+                \end{split}
+            \end{equation*}
+            
+            %Ejercicio 2.b%
+            \item \textbf{ $ (p \Leftrightarrow r) \vee \neg q $}
+            \begin{equation*}
+                \begin{split}
+                    &   (p \Leftrightarrow r) \vee \neg q
+                    \\& ( (p \Rightarrow r) \wedge (r \Rightarrow p) )  \vee \neg q
+                    \\& ( (\neg p \vee r) \wedge (\neg r \vee p) )  \vee \neg q
+                    \\& ( (\neg p \wedge (\neg r \vee p) ) \vee ( (r \wedge (\neg r \vee p) )  \vee \neg q
+                    \\& ( (\neg p \wedge \neg r) \vee (\neg p \wedge p) )  \vee( (r \wedge \neg r) \vee (r \wedge p) ) \vee \neg q
+                    \\& (\neg p \wedge \neg r) \vee (\neg p \wedge p) \vee (r \wedge \neg r) \vee (r \wedge p)\vee \neg q
+                \end{split}
+            \end{equation*}
+            
+            %Ejercicio 2.c%
+            \item \textbf{ $\neg(p \vee q) \Leftrightarrow (q \vee \neg r) $}
+            \begin{equation*}
+                \begin{split}
+                    &   (p \Rightarrow q) \wedge (r \vee \neg q)
+                    \\& (\neg p \vee  q) \wedge (r \vee \neg q)
+                    \\& (\neg p \wedge  (r \vee \neg q)  ) \vee (q \wedge  (r \vee \neg q)  )
+                    \\& ((\neg p \wedge r) \vee (\neg p \wedge \neg q)) \vee ((q \wedge r) \vee (q \wedge \neg q))
+                    \\& (\neg p \wedge r) \vee (\neg p \wedge \neg q) \vee  (q \wedge r) \vee (q \wedge \neg q)
+                \end{split}
+            \end{equation*}
+            
+            %Ejercicio 2.d%
+            \item \textbf{ $p \Leftrightarrow ( q \Leftrightarrow ( r \Leftrightarrow p_1 ) ) $}
+            \begin{equation*}
+                \begin{split}
+                    &   p \Leftrightarrow ( q \Leftrightarrow ( r \Leftrightarrow p_1 ) ) 
+                    \\&  ( p \Rightarrow [ ( q \Rightarrow [ (r \Rightarrow p_1) \wedge (p_1 \Rightarrow r) ] ) \wedge ( [ ( r \Rightarrow p_1) \wedge (p_1 \Rightarrow r) ] \Rightarrow q ) ] ) 
+                    \\& \wedge ( [ ( q \Rightarrow [ (r \Rightarrow p_1) \wedge (p_1 \Rightarrow r) ] ) \wedge ( [ ( r \Rightarrow p_1) \wedge (p_1 \Rightarrow r) ] \Rightarrow q ) ] \Rightarrow p )
+                    \\&
+                    \\& (\neg p \vee [ ( \neg q \vee [ (\neg r \vee p_1) \wedge (\neg p_1 \vee  r)])\wedge([(r \wedge \neg p_1) \vee (p_1 \wedge \neg r) ] \vee q ) ] ) 
+                    \\& \wedge ( [ ( q \wedge [ (r \wedge \neg p_1) \vee (p_1 \wedge \neg r) ] ) \vee  ( [ (\neg r \vee p_1) \wedge (\neg p_1 \vee r) ] \wedge \neg q ) ] \Rightarrow p )
+                    \\&
+                    \\& (\neg p \wedge \neg (\neg q \wedge \neg (\neg r \wedge \neg p_1) \vee (\neg r \wedge r) \vee (p_1 \wedge \neg p_1) \vee (p_1 \wedge r)) 
+                    \\& \vee (\neg q \wedge q) \vee ((\neg r \wedge \neg p_1) \vee (\neg r \wedge r) 
+                    \\& \vee (p_1 \wedge \neg p_1) \vee (p_1 \wedge r) \wedge \neg (\neg r \wedge \neg p_1) \vee (\neg r \wedge r) \vee (p_1 \wedge \neg p_1) \vee (p_1 \wedge r)) \vee ((\neg r \wedge \neg p_1) 
+                    \\& \vee (\neg r \wedge r) \vee (p_1 \wedge \neg p_1) \vee (p_1 \wedge r) \wedge q)) \vee (\neg p \wedge p) \vee ((\neg q \wedge \neg (\neg r \wedge \neg p_1) 
+                    \\& \vee (\neg r \wedge r) \vee (p_1 \wedge \neg p_1) \vee (p_1 \wedge r)) \vee (\neg q \wedge q) \vee ((\neg r \wedge \neg p_1) \vee (\neg r \wedge r) 
+                    \\& \vee (p_1 \wedge \neg p_1) \vee (p_1 \wedge r) \wedge \neg (\neg r \wedge \neg p_1) \vee (\neg r \wedge r) \vee (p_1 \wedge \neg p_1) \vee (p_1 \wedge r)) 
+                    \\& \vee ((\neg r \wedge \neg p_1) \vee (\neg r \wedge r) \vee (p_1 \wedge \neg p_1) \vee (p_1 \wedge r) \wedge q) \wedge \neg (\neg q \wedge \neg (\neg r \wedge \neg p_1) 
+                    \\& \vee (\neg r \wedge r) \vee (p_1 \wedge \neg p_1) \vee (p_1 \wedge r)) \vee (\neg q \wedge q) \vee ((\neg r \wedge \neg p_1) \vee (\neg r \wedge r) \vee (p_1 \wedge \neg p_1) 
+                    \\& \vee (p_1 \wedge r) \wedge \neg (\neg r \wedge \neg p_1) \vee (\neg r \wedge r) \vee (p_1 \wedge \neg p_1) \vee (p_1 \wedge r)) \vee ((\neg r \wedge \neg p_1) 
+                    \\& \vee (\neg r \wedge r) \vee (p_1 \wedge \neg p_1) \vee (p_1 \wedge r) \wedge q)) \vee ((\neg q \wedge \neg (\neg r \wedge \neg p_1) \vee (\neg r \wedge r) 
+                    \\& \vee (p_1 \wedge \neg p_1) \vee (p_1 \wedge r)) \vee (\neg q \wedge q) \vee ((\neg r \wedge \neg p_1) \vee (\neg r \wedge r) \vee (p_1 \wedge \neg p_1) 
+                    \\& \vee (p_1 \wedge r) \wedge \neg (\neg r \wedge \neg p_1) \vee (\neg r \wedge r) \vee (p_1 \wedge \neg p_1) \vee (p_1 \wedge r)) \vee ((\neg r \wedge \neg p_1) 
+                    \\& \vee (\neg r \wedge r) \vee (p_1 \wedge \neg p_1) \vee (p_1 \wedge r) \wedge q) \wedge p)
+                    \\&
+                \end{split}
+            \end{equation*}
+            
+        \end{enumerate}
+        
+        %Ejercicio 3%
+        \item \textbf{  Demuestra los siguientes teoremas de deducción natural }
+        \begin{enumerate}
+            %ejercicio3.a
+            \item \textbf{$\vdash_N (p \wedge q \Rightarrow r) \Leftrightarrow (p \Rightarrow (q \Rightarrow r));$}
+            \\\begin{tabular}{l l r}
+                   1  & $\vdash_N (p \wedge q \Rightarrow r) \Leftrightarrow (p \Rightarrow (q \Rightarrow r)) $ & (premisa)
+                \\ 2  & $ [(p \wedge q \Rightarrow r) \Rightarrow (p \Rightarrow (q \Rightarrow r))] , [(p \Rightarrow (q \Rightarrow r)) \Rightarrow(p \wedge q \Rightarrow r)] \vdash_N $ & (premisa) 
+                \\3  & $ (p \wedge r ) \vdash (q \wedge r) $ &(Eliminacion $\rightarrow$ 2)
+                \\4  & p &(Eliminacion $\wedge$ 3)
+                \\5  & q  &(MP 4 2)
+                \\6  & $q \wedge r $  &(Introduccion $\wedge$ 4 5)
+                \\& $\vDash_N$
+            \end{tabular}
+            
+            %ejercicio3.b
+            \item \textbf{$\vdash_N (p \Rightarrow q) \Rightarrow (p \wedge r \Rightarrow q \wedge r)$}
+            \\\begin{tabular}{l l r}
+                   1  & $\vdash_N (p \Rightarrow q) \Rightarrow ((p \wedge r) \Rightarrow (q \wedge r)) $ & (premisa)
+                \\ 2  & $(p \Rightarrow q) \vdash_N ((p \wedge r) \Rightarrow (q \wedge r)) $& (Eliminacion $\rightarrow$ 1)
+                \\3  & $ (p \wedge r ) \vdash (q \wedge r) $ &(Eliminacion $\rightarrow$ 2)
+                \\4  & p &(Eliminacion $\wedge$ 3)
+                \\5  & q  &(MP 4 2)
+                \\6  & $q \wedge r $  &(Introduccion $\wedge$ 4 5)
+                \\& $\vDash_N$
+            \end{tabular}
+            
+            %ejercicio3.c
+            \item \textbf{$\vdash_N (p \Rightarrow q) \Rightarrow (p \vee r \Rightarrow q \vee r)$}
+            \\\begin{tabular}{l l r}
+                   1  & $\vdash_N (p \Rightarrow q) \Rightarrow ((p \vee r) \Rightarrow (q \vee r)) $ & (premisa)
+                \\ 2  & $(p \Rightarrow q) \vdash_N ((p \vee r) \Rightarrow (q \vee r)) $& (Eliminacion $\rightarrow$ 1)
+                \\3  & $ (p \vee r ) \vdash (q \vee r) $ &(Eliminacion $\rightarrow$ 2)
+                \\4  & si p &(Eliminacion $\vee$ 3)
+                \\5  & q  &(MP 4 2)
+                \\6  & $q \vee r $  &(Introduccion $\vee$ 5)
+                \\7  & si r &(Eliminacion $\vee$ 3)
+                \\8  & $q \vee r $  &(Introduccion $\vee$ 7)
+                \\& $\vDash_N$
+            \end{tabular}
+            
+            %ejercicio3.d
+            \item \textbf{$p \Rightarrow q, q \Rightarrow r \vee s, \neg s, p \vdash_N  r.$}
+            \\\begin{tabular}{l l r}
+                   1  & $p \Rightarrow q, q \Rightarrow r \vee s, \neg s, p \vdash_N  r$ & (premisa)
+                \\ 2  &$p \Rightarrow q $ & (premisa)
+                \\ 3  & $q \Rightarrow (r \vee s)$ & (premisa)
+                \\ 4  & $\neg s $ & (premisa)
+                \\ 5  & $ p $ & (premisa)
+                \\ 6  & q & (MP 5 2)
+                \\ 7  & $r \vee s $& (MP 6 3)
+                \\ 8  & r& (Eliminacion $\vee$ 4 7 )
+                \\& $\vDash_N$
+            \end{tabular}
+        \end{enumerate}
+        
+        %Ejercicio 4%
+        \item \textbf{ . Demuestra que las reglas $E \wedge, F y I \Rightarrow  $son correctas }
+        \begin{enumerate}
+            \item \textbf{ E $ \wedge $}
+            \\Sea $p\wedge q \vdash p$ 
+            \\como es una premisa es verdadero, como la tabla de verdad de $\wedge$ es solo verdadero cuando ambos son verdaderos en necesario que p sea verdadero al igual que q.
+            \\ \begin{tabular}{|c|c|c|}
+                \hline
+                p & q & $\wedge$ 
+                \\ \hline
+                0 & 0 & 0
+                \\\hline
+                0 & 1 & 0
+                \\\hline
+                1 & 0 & 0
+                \\\hline
+                1 & 1 & 1
+                \\\hline
+            \end{tabular}\\
+            
+            \item \textbf{F}
+            \\Como el demostrar algo de esta forma es como una implicacion es decir de antecedentes  demostraremos unos consecuentes , si los antecedentes son falsos como en la tabla de verdad de la implicacion sera cierto cualquier consecuente.
+            \\ \begin{tabular}{|c|c|c|}
+                \hline
+                p & q & $\Rightarrow$ 
+                \\ \hline
+                0 & 0 & 1
+                \\\hline
+                0 & 1 & 1
+                \\\hline
+                1 & 0 & 0
+                \\\hline
+                1 & 1 & 1
+                \\\hline
+            \end{tabular}\\
+            
+            \textbf{I $\rightarrow$}
+            \\Si partimos de una premisa verdadera y concluimos algo  verdadero esto no es mas que otra forma de ver una implicacion
+        \end{enumerate}
+            
+    \end{enumerate}
+\end{document}
