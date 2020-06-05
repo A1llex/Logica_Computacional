@@ -145,6 +145,22 @@ checkPaso lprem lpp p = -- listaDePremisas listaDePasosPrevios pasoActual
                                             fi  = phiPasoNum i lpp -- paso i
                                             fj  = phiPasoNum j lpp -- paso j
                                             fk  = phiPasoNum k lpp -- paso k
+        --Reglas de disyuncion agregadas
+        (m,(g `Or` _,Idis1 i,lc))   -> lpp/=[]          -- hay pasos previos
+                                        && m==nN+1          -- m se incrementa en 1.
+                                        && lc== lcN         -- las cajas no cambiaron
+                                        && usableP i lc nN  -- i es usable, i<nN && i no esta en una caja cerrada 
+                                        && g==fi    -- g es el conyunto 1 
+                                            where 
+                                            fi= phiPasoNum i lpp -- paso i
+        (m,(_ `Or` g,Idis2 i,lc))   -> lpp/=[]          -- hay pasos previos
+                                        && m==nN+1          -- m se incrementa en 1.
+                                        && lc== lcN         -- las cajas no cambiaron
+                                        && usableP i lc nN  -- i es usable, i<nN && i no esta en una caja cerrada 
+                                        && g==fi  -- h es el conyunto 
+                                            where 
+                                           fi= phiPasoNum i lpp -- paso i
+
         --Reglas para la implicacion:
         (m,(_ `Imp` h,Iimp i j,lc)) -> lpp/=[]                  -- hay pasos previos
                                         && m==nN+1                  -- m se incrementa en 1.
@@ -185,6 +201,15 @@ checkPaso lprem lpp p = -- listaDePremisas listaDePasosPrevios pasoActual
                                             where 
                                             fi= phiPasoNum i lpp -- paso i
                                             fj= phiPasoNum j lpp -- paso j
+        --agregar Eneg 2
+        (m,(g, E2neg i,lc))         -> lpp/=[]              -- hay pasos previos
+                                        && m==nN+1              -- m se incrementa en 1.
+                                        && lc== lcN             -- las cajas no cambiaron
+                                        && usableP i lc nN      -- i es usable, i<nN && i no esta en una caja cerrada 
+                                        && g==fi  -- eliminacion de la negacion: ¬¬fi:fi 
+                                            where
+                                            fi = phiPasoNum i lpp -- paso i
+
         -- Regla para suposiciones (Assumptions):
         (m,(_,Isup,lc))              -> m==nN+1                          -- m se incrementa en 1.
                                         && lc== lcN ++ [(nN+1,0)]           -- la caja (nN+1,0) se agrego a las cajas
