@@ -43,14 +43,11 @@ fibonacci(N,X) :-
 %2.3 Suma naturales%
 suma(0,X,X).
 suma(X,0,X).
-/*suma(X,Y,Z) :-
+suma(X,s(Y),Z) :-
     natural(X),
     natural(Y),
-    X1 is X-1,
-    Y1 is Y+1,
-    suma(X1,Y1,Z).*/
-suma(X,s(Y),Z) :-
     suma(s(X),Y,Z).
+
 %2.4 potencia%
 %Multiplicacion%
 multiplicacion(1,X,X).
