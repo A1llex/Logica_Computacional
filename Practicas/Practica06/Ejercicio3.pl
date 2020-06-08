@@ -13,28 +13,7 @@ prefijo([X|XS],[X|YS]) :-
     prefijo(XS,YS).
 
 %3.3 Suma Acumulada%
-/*
-sumaAcumulada([],[]).
-sumaAcumulada([X],[X]).
-sumaAcumulada([X|XS],[Y|YS]) :-
-    cola(XS,X),
-    cola(YS,Y),
-    X is S + Y,
-    sumaAcumulada(XS,YS).
-    . 
 
-
-%tail%
-cola([X],X).
-cola([_|XS],Y):-
-    cola(XS,Y).
-
-suml([],0).
-suml([X],X).
-suml([X|XS],N) :-
-    suml(XS,N1),
-    N is X+N1.
-*/
 
 
 %3.4 Nueva Lista%
